@@ -5,6 +5,10 @@ import "./TinderCards.css";
 function TinderCards() {
   const [people, setPeople] = useState([
     {
+      name: "Riseburg Dipu",
+      url: "https://i.ibb.co/YbhvmLY/86708018-2705818319531929-7090279583018123264-n.jpg",
+    },
+    {
       name: "Elon Musk",
       url: "https://upload.wikimedia.org/wikipedia/commons/8/85/Elon_Musk_Royal_Society_%28crop1%29.jpg",
     },
