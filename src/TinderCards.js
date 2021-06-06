@@ -1,45 +1,45 @@
-import React, { useState } from "react";
-import TinderCard from "react-tinder-card";
-import "./TinderCards.css";
+import React, { useEffect, useState } from 'react';
+import TinderCard from 'react-tinder-card';
+import './TinderCards.css';
+import axios from './axios';
 
 function TinderCards() {
-  const [people, setPeople] = useState([
-    {
-      name: "Riseburg Dipu",
-      url: "https://i.ibb.co/YbhvmLY/86708018-2705818319531929-7090279583018123264-n.jpg",
-    },
-    {
-      name: "Elon Musk",
-      url: "https://upload.wikimedia.org/wikipedia/commons/8/85/Elon_Musk_Royal_Society_%28crop1%29.jpg",
-    },
-    {
-      name: "Jeff Bezos",
-      url: "https://upload.wikimedia.org/wikipedia/commons/6/6c/Jeff_Bezos_at_Amazon_Spheres_Grand_Opening_in_Seattle_-_2018_%2839074799225%29_%28cropped%29.jpg",
-    },
-  ]);
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const req = await axios.get('/tinder/cards');
+
+      setPeople(req.data);
+    }
+
+    fetchData();
+  }, []);
+
+  console.log(people);
 
   const swiped = (direction, nameToDelete) => {
-    console.log("removing" + nameToDelete);
+    console.log('removing' + nameToDelete);
   };
 
   const outOfFrame = (name) => {
-    console.log(name + " left the screen");
+    console.log(name + ' left the screen');
   };
 
   return (
-    <div className="tinderCards">
-      <div className="tinderCards_container">
+    <div className='tinderCards'>
+      <div className='tinderCards_container'>
         {people.map((person) => (
           <TinderCard
-            className="swipe"
+            className='swipe'
             key={person.name}
-            preventSwipe={["up", "down"]}
+            preventSwipe={['up', 'down']}
             onswipe={(dir) => swiped(dir, person.name)}
             onCardLeftScreen={() => outOfFrame(person.name)}
           >
             <div
-              style={{ backgroundImage: `url(${person.url})` }}
-              className="card"
+              style={{ backgroundImage: `url(${person.imgUrl})` }}
+              className='card'
             >
               <h3>{person.name}</h3>
             </div>
